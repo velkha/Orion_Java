@@ -1,4 +1,4 @@
-package org.orion.assistant.config.ddbb;
+/*package org.orion.assistant.config.ddbb;
 
 import javax.sql.DataSource;
 
@@ -49,3 +49,4 @@ public class DndConfig {
         return new JpaTransactionManager(dndEntityManagerFactory);
     }
 }
+*/

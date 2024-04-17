@@ -83,7 +83,7 @@ public class WatsonService {
             .build();
         //TODO: PORQUE ESTO NO FUNCIONA
         MessageContextSkills skills = new MessageContextSkills.Builder()
-            .add("main_skill", contextParams) // Use the correct skill name here
+            //.add("main_skill", contextParams) // Use the correct skill name here
             .build();
 
         MessageContext messageContext = new MessageContext.Builder()
@@ -96,7 +96,13 @@ public class WatsonService {
             .context(messageContext)
             .build();
 
-        assistant.message(options).execute().getResult();
+        return assistant.message(options).execute().getResult();
     }
+
+    public void deleteWorkspaceId(String workspaceId) {
+        //assistant.deleteSession(session.getSessionId()).execute();
+    }
+
+    
         
 }
