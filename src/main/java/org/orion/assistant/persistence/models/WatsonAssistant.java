@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.service.impl;
+package org.orion.assistant.persistence.models;
 
 import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -15,7 +15,7 @@ import com.ibm.watson.assistant.v2.model.SessionResponse;
 import java.util.Map;
 
 //TODO: multi-assistant (for multilenguage support)
-public class WatsonService {
+public class WatsonAssistant {
     private IamAuthenticator authenticator;
     private Assistant assistant;
     private HttpConfigOptions configOptions;
@@ -25,13 +25,13 @@ public class WatsonService {
     private static String defaultVersion = "2020-04-01";
 
 
-    public WatsonService(String apiKey) {
+    public WatsonAssistant(String apiKey) {
         this(apiKey, defaultVersion);
     }
-    public WatsonService(String apiKey, String version) {
+    public WatsonAssistant(String apiKey, String version) {
         this(apiKey, version, defaultUrl);
     }
-    public WatsonService(String apiKey, String version, String serviceUrl) {
+    public WatsonAssistant(String apiKey, String version, String serviceUrl) {
         authenticator = new IamAuthenticator.Builder()
             .apikey(apiKey)
             .build();

@@ -58,4 +58,30 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>pro</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/entornos/pro</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>pre</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/entornos/pre</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
