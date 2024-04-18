@@ -34,8 +34,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-			<version>8.0.30</version>
+			<version>8.0.26</version>
 		</dependency>
 		<dependency>
 			<groupId>org.modelmapper</groupId>
@@ -46,6 +45,16 @@
 			<groupId>com.ibm.watson</groupId>
 			<artifactId>ibm-watson</artifactId>
 			<version>11.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.23.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.23.1</version>
 		</dependency>
 	</dependencies>
 
@@ -58,30 +67,5 @@
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>pro</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/entornos/pro</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>pre</id>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/entornos/pre</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-	</profiles>
 
 </project>
