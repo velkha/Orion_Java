@@ -26,8 +26,8 @@ public class ProcessServiceImpl implements ProcessService{
             String apiKey = properties.getProperty("watson.apiKey");
             String url = properties.getProperty("watson.assistant.url");
             String version = properties.getProperty("watson.assistant.version");
-            
-            watsonAssistant = new WatsonAssistant(apiKey, url, version);
+            String assistantId = properties.getProperty("watson.assistant.id");
+            watsonAssistant = new WatsonAssistant(apiKey, version,  url, assistantId);
             
             fileInputStream.close();
         } catch (IOException e) {

@@ -21,17 +21,17 @@ public class WatsonAssistant {
     private HttpConfigOptions configOptions;
     private CreateSessionOptions createSessionOptions;
     private SessionResponse session;
+    private String assistantId;
     private static String defaultUrl = "https://api.us-south.assistant.watson.cloud.ibm.com"; 
     private static String defaultVersion = "2020-04-01";
 
-
-    public WatsonAssistant(String apiKey) {
-        this(apiKey, defaultVersion);
+    public WatsonAssistant(String apiKey, String id) {
+        this(apiKey, defaultVersion, id);
     }
-    public WatsonAssistant(String apiKey, String version) {
-        this(apiKey, version, defaultUrl);
+    public WatsonAssistant(String apiKey, String version, String id) {
+        this(apiKey, version, defaultUrl, id);
     }
-    public WatsonAssistant(String apiKey, String version, String serviceUrl) {
+    public WatsonAssistant(String apiKey, String version, String serviceUrl, String id) {
         authenticator = new IamAuthenticator.Builder()
             .apikey(apiKey)
             .build();
@@ -43,6 +43,8 @@ public class WatsonAssistant {
             .disableSslVerification(true)
             .build();
         assistant.configureClient(configOptions);
+        this.assistantId = id;
+        this.createWorkspaceId();
     }
 
     //TODO: Implement this method
@@ -51,8 +53,8 @@ public class WatsonAssistant {
     }
 
     public String createWorkspaceId (){
-        //TODO: implement assistant ID in the create session options
-        this.createSessionOptions = new CreateSessionOptions.Builder().build();
+        //? new CreateSessionOptions.Builder("{environment_id}").build();
+        this.createSessionOptions = new CreateSessionOptions.Builder(assistantId).build();
         this.session = assistant.createSession(createSessionOptions).execute().getResult();
         return session.getSessionId();
     }
@@ -83,7 +85,7 @@ public class WatsonAssistant {
             .build();
         //TODO: PORQUE ESTO NO FUNCIONA
         MessageContextSkills skills = new MessageContextSkills.Builder()
-            //.add("main_skill", contextParams) // Use the correct skill name here
+            //.add("main_skill", contextParams) //! Use the correct skill name here
             .build();
 
         MessageContext messageContext = new MessageContext.Builder()
