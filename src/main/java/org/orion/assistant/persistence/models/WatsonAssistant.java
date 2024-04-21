@@ -13,9 +13,12 @@ import com.ibm.watson.assistant.v2.model.MessageContextSkills;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 //TODO: multi-assistant (for multilenguage support)
 public class WatsonAssistant {
+    private static final Logger LOG = LogManager.getLogger(WatsonAssistant.class); 
     private IamAuthenticator authenticator;
     private Assistant assistant;
     private HttpConfigOptions configOptions;
@@ -32,6 +35,7 @@ public class WatsonAssistant {
         this(apiKey, version, defaultUrl, id);
     }
     public WatsonAssistant(String apiKey, String version, String serviceUrl, String id) {
+        LOG.info("Creating Watson Assistant instance: " + id + " with version: " + version + " and serviceUrl: " + serviceUrl);
         authenticator = new IamAuthenticator.Builder()
             .apikey(apiKey)
             .build();
@@ -44,7 +48,9 @@ public class WatsonAssistant {
             .build();
         assistant.configureClient(configOptions);
         this.assistantId = id;
+        LOG.info("Watson Assistant instance created, initializing session...");
         this.createWorkspaceId();
+        LOG.info("Session initialized");
     }
 
     //TODO: Implement this method
@@ -59,7 +65,8 @@ public class WatsonAssistant {
         return session.getSessionId();
     }
 
-    public MessageResponse sendMessage(String message) {
+    public MessageResponse sendMessage(String message, User user) {
+        LOG.info("User: "+user.getId()+"|"+user.getName()+"\nSending message: " + message);
         MessageInput input = new MessageInput.Builder()
             .text(message)
             .build();

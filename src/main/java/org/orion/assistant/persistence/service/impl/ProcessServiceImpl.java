@@ -31,7 +31,7 @@ public class ProcessServiceImpl implements ProcessService{
             
             fileInputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Error loading Watson properties file", e);
             //throw new ResourceNotFoundException("File not found");
         }
     }
@@ -39,15 +39,15 @@ public class ProcessServiceImpl implements ProcessService{
     public ProcessServiceImpl(WatsonAssistant watsonAssistant) {
         this.watsonAssistant = watsonAssistant;
     }
-    public void process(User userDTO) {
+    public void process(User user) {
         LOG.info("Processing user: " );
-        LOG.info("User name: " + userDTO.getName());
-        LOG.info("User mail: " + userDTO.getEmail());
-        LOG.info("User sessionId: " + userDTO.getSessionId());
-        LOG.info("User role: " + userDTO.getRole());
+        LOG.info("User name: " + user.getName());
+        LOG.info("User mail: " + user.getEmail());
+        LOG.info("User sessionId: " + user.getSessionId());
+        LOG.info("User role: " + user.getRole());
         
         LOG.info("Watson Assistant: " + watsonAssistant);
-        LOG.info(watsonAssistant.sendMessage("hola"));
+        LOG.info(watsonAssistant.sendMessage("hola", user));
     }
 
 }
