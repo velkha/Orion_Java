@@ -47,7 +47,7 @@ public class ProcessServiceImpl implements ProcessService{
         LOG.info("User role: " + userDTO.getRole());
         
         LOG.info("Watson Assistant: " + watsonAssistant);
-        LOG.info(watsonAssistant.sendMessage(null, "hola"));
+        LOG.info(watsonAssistant.sendMessage("hola"));
     }
 
 }

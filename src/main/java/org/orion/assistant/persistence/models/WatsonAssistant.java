@@ -59,12 +59,12 @@ public class WatsonAssistant {
         return session.getSessionId();
     }
 
-    public MessageResponse sendMessage(String workspaceId, String message) {
+    public MessageResponse sendMessage(String message) {
         MessageInput input = new MessageInput.Builder()
             .text(message)
             .build();
         MessageOptions options = new MessageOptions.Builder()
-            .assistantId(workspaceId)
+            .assistantId(assistantId)
             .sessionId(session.getSessionId())
             .input(input)
             .build();
