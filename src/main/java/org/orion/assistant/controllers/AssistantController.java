@@ -1,12 +1,11 @@
 package org.orion.assistant.controllers;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.orion.assistant.persistence.model.User;
+import org.orion.assistant.persistence.dto.UserDTO;
 import org.orion.assistant.persistence.service.ProcessService;
 import org.orion.assistant.persistence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -82,7 +80,7 @@ public class AssistantController {
         return "Session restarted";
     }
 
-    public User createTemporalTestUser() {
-        return new User("name", "mail", null, "null");
+    public UserDTO createTemporalTestUser() {
+        return new UserDTO("name", "mail", null, "null");
     }
 }

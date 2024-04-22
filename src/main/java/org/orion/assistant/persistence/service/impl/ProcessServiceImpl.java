@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.orion.assistant.exception.custom.ResourceNotFoundException;
 import org.orion.assistant.integration.WatsonAssistant;
-import org.orion.assistant.persistence.model.User;
+import org.orion.assistant.persistence.dto.UserDTO;
 import org.orion.assistant.persistence.service.ProcessService;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +39,10 @@ public class ProcessServiceImpl implements ProcessService{
     public ProcessServiceImpl(WatsonAssistant watsonAssistant) {
         this.watsonAssistant = watsonAssistant;
     }
-    public String process(User user, String message) {
+    public String process(UserDTO user, String message) {
         return this.process(user, null, message);
     }
-    public String process(User user, String session, String message) {
+    public String process(UserDTO user, String session, String message) {
         if (session != null) {
             user.setSessionId(session);
         }

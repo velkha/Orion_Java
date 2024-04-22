@@ -16,7 +16,7 @@ import com.ibm.watson.assistant.v2.model.SessionResponse;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.orion.assistant.persistence.model.User;
+import org.orion.assistant.persistence.dto.UserDTO;
 
 //TODO: multi-assistant (for multilenguage support)
 public class WatsonAssistant {
@@ -62,7 +62,7 @@ public class WatsonAssistant {
         return session.getSessionId();
     }
 
-    public MessageResponse sendMessage(String message, User user) {
+    public MessageResponse sendMessage(String message, UserDTO user) {
         LOG.info("User: "+user.getId()+"|"+user.getName()+"\nSending message: " + message);
         MessageInput input = new MessageInput.Builder()
             .text(message)
