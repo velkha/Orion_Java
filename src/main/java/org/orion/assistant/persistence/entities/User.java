@@ -1,5 +1,5 @@
 
-package org.orion.assistant.persistence.models;
+package org.orion.assistant.persistence.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

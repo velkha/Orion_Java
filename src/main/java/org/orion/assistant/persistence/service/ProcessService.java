@@ -1,6 +1,6 @@
 package org.orion.assistant.persistence.service;
 
-import org.orion.assistant.persistence.models.User;
+import org.orion.assistant.persistence.entities.User;
 
 public interface ProcessService {
     String process(User userDTO, String message);

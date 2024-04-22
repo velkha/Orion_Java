@@ -1,6 +1,6 @@
 package org.orion.assistant.exception.handlers;
 
-import org.orion.assistant.exception.modelexceptions.ResourceNotFoundException;
+import org.orion.assistant.exception.custom.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

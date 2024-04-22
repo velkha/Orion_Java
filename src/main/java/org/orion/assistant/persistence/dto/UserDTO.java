@@ -1,4 +1,4 @@
-package org.orion.assistant.dto;
+package org.orion.assistant.persistence.dto;
 
 public class UserDTO {
     private long id;

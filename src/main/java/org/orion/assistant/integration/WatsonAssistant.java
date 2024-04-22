@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.models;
+package org.orion.assistant.integration;
 
 import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -16,6 +16,7 @@ import com.ibm.watson.assistant.v2.model.SessionResponse;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.orion.assistant.persistence.entities.User;
 
 //TODO: multi-assistant (for multilenguage support)
 public class WatsonAssistant {

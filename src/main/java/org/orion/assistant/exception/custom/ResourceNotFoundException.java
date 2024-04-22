@@ -1,4 +1,4 @@
-package org.orion.assistant.exception.modelexceptions;
+package org.orion.assistant.exception.custom;
 
 import java.io.IOException;
 
