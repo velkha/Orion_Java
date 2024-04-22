@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.orion.assistant.exception.custom.ResourceNotFoundException;
 import org.orion.assistant.integration.WatsonAssistant;
-import org.orion.assistant.persistence.entities.User;
+import org.orion.assistant.persistence.model.User;
 import org.orion.assistant.persistence.service.ProcessService;
 import org.springframework.stereotype.Service;
 
