@@ -39,7 +39,16 @@ public class ProcessServiceImpl implements ProcessService{
     public ProcessServiceImpl(WatsonAssistant watsonAssistant) {
         this.watsonAssistant = watsonAssistant;
     }
-    public void process(User user) {
+    public String process(User user, String message) {
+        return this.process(user, null, message);
+    }
+    public String process(User user, String session, String message) {
+        if (session != null) {
+            user.setSessionId(session);
+        }
+        else {
+            user.setSessionId(watsonAssistant.createSession());
+        }
         LOG.info("Processing user: " );
         LOG.info("User name: " + user.getName());
         LOG.info("User mail: " + user.getEmail());
@@ -47,7 +56,8 @@ public class ProcessServiceImpl implements ProcessService{
         LOG.info("User role: " + user.getRole());
         
         LOG.info("Watson Assistant: " + watsonAssistant);
-        LOG.info(watsonAssistant.sendMessage("hola", user));
+        String response = watsonAssistant.sendMessage(message, user).toString();
+        LOG.info("Response: " + response);
+        return response;
     }
-
 }

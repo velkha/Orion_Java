@@ -6,6 +6,7 @@ import com.ibm.watson.assistant.v2.model.MessageInput;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.Assistant;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
+import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.MessageContext;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobal;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobalSystem;
@@ -53,11 +54,6 @@ public class WatsonAssistant {
         LOG.info("Session initialized");
     }
 
-    //TODO: Implement this method
-    public Object processMessage(String workspaceId, String message) {
-        return null;
-    }
-
     public String createWorkspaceId (){
         //? new CreateSessionOptions.Builder("{environment_id}").build();
         this.createSessionOptions = new CreateSessionOptions.Builder(assistantId).build();
@@ -72,7 +68,7 @@ public class WatsonAssistant {
             .build();
         MessageOptions options = new MessageOptions.Builder()
             .assistantId(assistantId)
-            .sessionId(session.getSessionId())
+            .sessionId(user.getSessionId())
             .input(input)
             .build();
         return assistant.message(options).execute().getResult();
@@ -110,6 +106,16 @@ public class WatsonAssistant {
 
     public void deleteWorkspaceId(String workspaceId) {
         //assistant.deleteSession(session.getSessionId()).execute();
+    }
+    public String createSession() {
+        CreateSessionOptions options = new CreateSessionOptions.Builder(this.assistantId).build();
+        SessionResponse response = assistant.createSession(options).execute().getResult();
+        return response.getSessionId();
+    }
+    public void deleteSession(String sessionId) {
+        // TODO Auto-generated method stub
+        DeleteSessionOptions deleteOptions = new DeleteSessionOptions.Builder(this.assistantId, sessionId).build();
+        assistant.deleteSession(deleteOptions).execute();
     }
 
     
