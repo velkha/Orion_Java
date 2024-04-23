@@ -65,7 +65,7 @@ public class JwtTokenProvider {
         }
         return false;
     }
-
+    //? From present self: I hate you past self
     public Authentication getAuthentication(String token) {
         // This method extracts the user details from the token and returns an Authentication object
         String username = getUserIdFromJWT(token);
