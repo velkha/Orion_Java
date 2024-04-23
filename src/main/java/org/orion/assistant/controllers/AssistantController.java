@@ -36,7 +36,6 @@ public class AssistantController {
         } catch (IOException e) {
             LOG.error("Error loading Temporal properties file", e);
         }
-        
     }
 
     /**
