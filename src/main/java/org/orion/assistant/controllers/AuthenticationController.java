@@ -22,7 +22,9 @@ public class AuthenticationController {
     private  AuthService authenticationService;
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> signup(@RequestBody SignUpReq request) {
+        LOG.info("-----------------------------------------------------------");
         LOG.info("Request received: {}", request); 
+        LOG.info("-----------------------------------------------------------");
         return ResponseEntity.ok(authenticationService.signUp(request));
     }
 
