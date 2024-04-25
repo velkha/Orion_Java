@@ -19,6 +19,10 @@ import org.apache.logging.log4j.Logger;
 import org.orion.assistant.persistence.dto.UserDTO;
 
 //TODO: multi-assistant (for multilenguage support)
+
+/**
+ * Class to interact with the Watson Assistant API, it allows to create a session, send messages and delete the session
+ */
 public class WatsonAssistant {
     private static final Logger LOG = LogManager.getLogger(WatsonAssistant.class); 
     private IamAuthenticator authenticator;
@@ -30,21 +34,42 @@ public class WatsonAssistant {
     private static String defaultUrl = "https://api.us-south.assistant.watson.cloud.ibm.com"; 
     private static String defaultVersion = "2020-04-01";
 
+    /**
+     * Constructor for the Watson Assistant class
+     * @param apiKey
+     * @param id
+     */
     public WatsonAssistant(String apiKey, String id) {
         this(apiKey, defaultVersion, id);
     }
+
+    /**
+     * Constructor for the Watson Assistant class
+     * @param apiKey
+     * @param version
+     * @param id
+     */
     public WatsonAssistant(String apiKey, String version, String id) {
         this(apiKey, version, defaultUrl, id);
     }
+    /**
+     * Constructor for the Watson Assistant class
+     * @param apiKey
+     * @param version
+     * @param serviceUrl
+     * @param id
+     */
     public WatsonAssistant(String apiKey, String version, String serviceUrl, String id) {
         LOG.info("Creating Watson Assistant instance: " + id + " with version: " + version + " and serviceUrl: " + serviceUrl);
+        //Generate the autentificator to call the assistant with the apikey
         authenticator = new IamAuthenticator.Builder()
             .apikey(apiKey)
             .build();
-
+        //Create the assistant with the version and the autentificator
         assistant = new Assistant(version, authenticator);
         assistant.setServiceUrl(serviceUrl);
 
+        //Disable SSL verification for the assistant so it can work in localhost
         configOptions = new HttpConfigOptions.Builder()
             .disableSslVerification(true)
             .build();
@@ -55,6 +80,11 @@ public class WatsonAssistant {
         LOG.info("Session initialized");
     }
 
+
+    /**
+     * Method to create a workspace session for the assistant session
+     * @return
+     */
     public String createWorkspaceId (){
         //? new CreateSessionOptions.Builder("{environment_id}").build();
         this.createSessionOptions = new CreateSessionOptions.Builder(assistantId).build();
@@ -62,6 +92,12 @@ public class WatsonAssistant {
         return session.getSessionId();
     }
 
+    /**
+     * Method to send a message to the assistant without context params modifications
+     * @param message
+     * @param user
+     * @return
+     */
     public MessageResponse sendMessage(String message, UserDTO user) {
         LOG.info("User: "+user.getId()+"|"+user.getUsername()+"\nSending message: " + message);
         MessageInput input = new MessageInput.Builder()
@@ -75,6 +111,13 @@ public class WatsonAssistant {
         return assistant.message(options).execute().getResult();
     }
 
+    /**
+     * Method to send a message to the assistant with context params modifications
+     * @param contextParams
+     * @param workspaceId
+     * @param message
+     * @return
+     */
     public MessageResponse setContextParams(Map<String, Object> contextParams, String workspaceId, String message) {
         MessageInput input = new MessageInput.Builder()
             .text("Hello")
@@ -105,16 +148,29 @@ public class WatsonAssistant {
         return assistant.message(options).execute().getResult();
     }
 
+    /**
+     * Method to delete the workspace session
+     * @param workspaceId
+     */
     public void deleteWorkspaceId(String workspaceId) {
         //assistant.deleteSession(session.getSessionId()).execute();
     }
+
+    /**
+     * Method to create a new session for the assistant and return the session id created 
+     * @return
+     */
     public String createSession() {
         CreateSessionOptions options = new CreateSessionOptions.Builder(this.assistantId).build();
         SessionResponse response = assistant.createSession(options).execute().getResult();
         return response.getSessionId();
     }
+
+    /**
+     * Method to delete a session for the assistant
+     * @param sessionId
+     */
     public void deleteSession(String sessionId) {
-        // TODO Auto-generated method stub
         DeleteSessionOptions deleteOptions = new DeleteSessionOptions.Builder(this.assistantId, sessionId).build();
         assistant.deleteSession(deleteOptions).execute();
     }

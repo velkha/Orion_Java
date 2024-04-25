@@ -12,11 +12,21 @@ import org.orion.assistant.persistence.dto.UserDTO;
 import org.orion.assistant.persistence.service.ProcessService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the ProcessService interface
+ * {@link org.orion.assistant.persistence.service.ProcessService}
+
+ */
 @Service
 public class ProcessServiceImpl implements ProcessService{
     private static final Logger LOG = LogManager.getLogger(ProcessServiceImpl.class); 
     private WatsonAssistant watsonAssistant;
 
+    /**
+     * Constructor for the ProcessServiceImpl class
+     * It loads the Watson properties file and creates a WatsonAssistant object
+     * @throws ResourceNotFoundException
+     */
     public ProcessServiceImpl() throws ResourceNotFoundException {
         try {
             Properties properties = new Properties();
@@ -36,12 +46,25 @@ public class ProcessServiceImpl implements ProcessService{
         }
     }
     
+    /**
+     * Constructor for the ProcessServiceImpl class
+     * @param watsonAssistant - WatsonAssistant object
+     */
     public ProcessServiceImpl(WatsonAssistant watsonAssistant) {
         this.watsonAssistant = watsonAssistant;
     }
+    /**
+     * {@link org.orion.assistant.persistence.service.ProcessService#process(UserDTO, String)}
+     */
+    @Override
     public String process(UserDTO user, String message) {
         return this.process(user, null, message);
     }
+
+    /**
+     * {@link org.orion.assistant.persistence.service.ProcessService#process(UserDTO, String, String)}
+     */
+    @Override
     public String process(UserDTO user, String session, String message) {
         if (session != null) {
             user.setSessionId(session);

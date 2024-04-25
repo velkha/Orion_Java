@@ -8,12 +8,15 @@ import org.orion.assistant.persistence.model.User;
 import org.orion.assistant.persistence.repositories.UserRepository;
 import org.orion.assistant.persistence.service.AuthService;
 import org.orion.assistant.persistence.service.JwtService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the AuthService interface
+ * {@link org.orion.assistant.persistence.service.AuthService}
+ */
 @Service
 public class AuthServiceImpl implements AuthService{
     private  UserRepository userRepository;
@@ -21,7 +24,13 @@ public class AuthServiceImpl implements AuthService{
     private  JwtService jwtService;
     private  AuthenticationManager authenticationManager;
 
-    @Autowired
+    /**
+     * Constructor for the AuthServiceImpl class
+     * @param userRepository - UserRepository object
+     * @param passwordEncoder - PasswordEncoder object
+     * @param jwtService - JwtService object
+     * @param authenticationManager - AuthenticationManager object
+     */
     public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService,
             AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
@@ -30,6 +39,11 @@ public class AuthServiceImpl implements AuthService{
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * {@link org.orion.assistant.persistence.service.AuthService#signUp(SignUpReq)}
+     * @param request - SignUpReq object
+     * @return AuthResponse object
+     */
     @Override
     public AuthResponse signUp(SignUpReq request) {
         User user = User.builder()
@@ -41,6 +55,11 @@ public class AuthServiceImpl implements AuthService{
         return AuthResponse.builder().token(jwt).build();
     }
 
+    /**
+     * {@link org.orion.assistant.persistence.service.AuthService#signIn(SignInReq)}
+     * @param request - SignInReq object
+     * @return AuthResponse object
+     */
     @Override
     public AuthResponse signIn(SignInReq request) {
         authenticationManager.authenticate(

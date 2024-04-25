@@ -5,7 +5,6 @@ import org.modelmapper.ModelMapper;
 import org.orion.assistant.persistence.dto.UserDTO;
 import org.orion.assistant.persistence.model.User;
 import org.orion.assistant.persistence.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,13 +12,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/**
+ * Implementation of the UserService interface
+ * {@link org.orion.assistant.persistence.service.UserService}
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private ModelMapper modelMapper;
-    
-    @Autowired
+
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
@@ -82,6 +85,9 @@ public class UserServiceImpl implements UserService {
             .collect(Collectors.toList());
     }
 
+    /**
+     * {@link org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(String)}
+     */
     @Override
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {

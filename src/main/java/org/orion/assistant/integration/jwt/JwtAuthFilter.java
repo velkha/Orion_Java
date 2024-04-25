@@ -20,12 +20,25 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Filter to authenticate the user with the JWT token
+ */
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
+    //TODO: pasarlo a constructor
     @Autowired
     private JwtService jwtService;
     @Autowired
     private UserService userService;
+    
+    /**
+     * Filter to authenticate the user with the JWT token
+     * @param request - HttpServletRequest object
+     * @param response - HttpServletResponse object
+     * @param filterChain - FilterChain object
+     * @throws ServletException - ServletException
+     * @throws IOException - IOException
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)

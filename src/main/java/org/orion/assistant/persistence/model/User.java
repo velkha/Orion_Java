@@ -17,7 +17,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
+/**
+ * User entity
+ */
 @Entity
 public class User implements UserDetails {
     @Id
@@ -34,8 +36,11 @@ public class User implements UserDetails {
     private Role role;
     @Column(name = "session_id")
     private String sessionId;
-
+    
     @Override
+    /**
+     * Returns the role of the user as a collection of GrantedAuthority
+     */
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
@@ -110,10 +115,10 @@ public class User implements UserDetails {
         return username;
     }
 
-    private User() {
+    public User() {
         // private constructor to prevent outside instantiation
     }
-
+        
     public static class Builder {
         private User user = new User();
 

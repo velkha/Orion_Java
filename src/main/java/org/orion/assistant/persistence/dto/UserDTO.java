@@ -1,5 +1,9 @@
 package org.orion.assistant.persistence.dto;
 
+
+/**
+ * Data Transfer Object for the User entity
+ */
 public class UserDTO {
     private long id;
     private String username;

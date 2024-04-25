@@ -1,5 +1,9 @@
 package org.orion.assistant.persistence.dao.auth;
 
+/**
+ * Response object for the JWT authentication process
+ * {@link org.orion.assistant.persistence.service.AuthService}
+ */
 public class AuthResponse {
     private String token;
 

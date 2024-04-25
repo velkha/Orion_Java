@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.orion.assistant.persistence.dto.UserDTO;
 import org.orion.assistant.persistence.service.ProcessService;
 import org.orion.assistant.persistence.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +22,6 @@ public class AssistantController {
     private static final Logger LOG = LogManager.getLogger(AssistantController.class);
     private static String testSession;
     
-    @Autowired
     public AssistantController(ProcessService processService, UserService userService) {
         this.processService = processService;
         this.userService = userService;

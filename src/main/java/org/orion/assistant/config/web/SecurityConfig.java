@@ -35,6 +35,13 @@ public class SecurityConfig {
     //? From present self: Hi me from the past, i hate you, i hate you so much, i will never forgive you for
     //! Es probable que esto reviente pero lo sabremos en el futuro #disfruta yo del futuro
     //? From present self: Its done, its over, i can finally rest, i can finally sleep, i can finally be free
+    /**
+     * Security filter chain configuration. This method is the one in charge of setting up the security configuration for the application that 
+     * will require the user to be authenticated to access the endpoints.
+     * @param http - HttpSecurity object
+     * @return SecurityFilterChain object
+     * @throws Exception - Exception
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -46,11 +53,19 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Password encoder configuration, using BCryptPasswordEncoder
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Authentication provider configuration
+     * @return
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -58,7 +73,13 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-
+    
+    /**
+     * Authentication manager configuration
+     * @param config - AuthenticationConfiguration object
+     * @return
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
             throws Exception {

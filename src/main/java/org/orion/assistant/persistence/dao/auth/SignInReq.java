@@ -1,5 +1,9 @@
 package org.orion.assistant.persistence.dao.auth;
 
+/**
+ * Request object for the sign in process
+ * {@link org.orion.assistant.persistence.service.AuthService#signIn(SignInReq)}
+ */
 public class SignInReq {
     private String username;
     private String password;

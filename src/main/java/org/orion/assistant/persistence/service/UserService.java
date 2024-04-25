@@ -3,9 +3,12 @@ package org.orion.assistant.persistence.service;
 import java.util.List;
 
 import org.orion.assistant.persistence.dto.UserDTO;
-import org.orion.assistant.persistence.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+
+/**
+ * Interface for the User Service
+ */
 public interface UserService {
     UserDTO getUserById(Long id);
     UserDTO createUser(UserDTO user);
