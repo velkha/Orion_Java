@@ -6,16 +6,17 @@ public class UserDTO {
     private String email;
     private String sessionId;
     private String role;
-
+    private String password;
     public UserDTO() {
         
     }
 
-    public UserDTO(String name, String email, String sessionId, String role) {
+    public UserDTO(String name, String email, String sessionId, String role, String password) {
         this.name = name;
         this.email = email;
         this.sessionId = sessionId;
         this.role = role;
+        this.password = password;
     }
 
     public long getId() {
@@ -56,5 +57,13 @@ public class UserDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
