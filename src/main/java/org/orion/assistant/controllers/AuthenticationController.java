@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
+
+    private static Logger LOG = LogManager.getLogger(AuthenticationController.class);
     //TODO: pasarlo a constructor
     @Autowired
     private  AuthService authenticationService;
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> signup(@RequestBody SignUpReq request) {
+        LOG.info("Request received: {}", request); 
         return ResponseEntity.ok(authenticationService.signUp(request));
     }
 

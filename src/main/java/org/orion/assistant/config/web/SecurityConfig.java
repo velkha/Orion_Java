@@ -28,16 +28,17 @@ public class SecurityConfig {
     private JwtAuthFilter tokenProvider;
     @Autowired
     private UserService userService;
-    //TODO question for myself: dafuk m8 is this?, why are we still here? just to suffer? T-T
+    //oldtd question for myself: dafuk m8 is this?, why are we still here? just to suffer? T-T
     //! From past self: Future self I just want to say that Im so sorry for this, my eyes were bleeding, i just needed it to stop, to let them rest a little 
     //! From past self: I hope you can forgive me for this, I know you will understand
     //! From past self: Time of death: 2024-04-23 17:00:00
     //? From present self: Hi me from the past, i hate you, i hate you so much, i will never forgive you for
     //! Es probable que esto reviente pero lo sabremos en el futuro #disfruta yo del futuro
+    //? From present self: Its done, its over, i can finally rest, i can finally sleep, i can finally be free
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/**")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
