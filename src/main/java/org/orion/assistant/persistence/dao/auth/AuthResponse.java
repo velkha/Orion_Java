@@ -8,6 +8,24 @@ public class AuthResponse {
     }
 
     public AuthResponse() {
+        //TODO Auto-generated constructor stub
+    }
+
+    public static class Builder {
+        private AuthResponse response = new AuthResponse();
+
+        public Builder token(String token) {
+            response.token = token;
+            return this;
+        }
+
+        public AuthResponse build() {
+            return response;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getToken() {
@@ -18,3 +36,4 @@ public class AuthResponse {
         this.token = token;
     }
 }
+

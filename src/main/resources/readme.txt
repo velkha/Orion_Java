@@ -18,3 +18,5 @@ aplication.properties{
             watson.version=
             watson.assistant.id=
         }
+
+No se usa lombok, personalmete prefiero algo mas de boilerplate que perder legibilidad del codigo

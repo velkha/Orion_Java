@@ -1,15 +1,15 @@
 package org.orion.assistant.config.web;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.orion.assistant.integration.jwt.JwtAuthenticationFilter;
-import org.orion.assistant.integration.jwt.JwtTokenProvider;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.orion.assistant.integration.jwt.JwtAuthFilter;
 import org.orion.assistant.persistence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     //TODO: pasarlo a constructor
     @Autowired
-    private JwtTokenProvider tokenProvider;
+    private JwtAuthFilter tokenProvider;
     @Autowired
     private UserService userService;
     //TODO question for myself: dafuk m8 is this?, why are we still here? just to suffer? T-T
@@ -35,18 +35,13 @@ public class SecurityConfig {
     //? From present self: Hi me from the past, i hate you, i hate you so much, i will never forgive you for
     //! Es probable que esto reviente pero lo sabremos en el futuro #disfruta yo del futuro
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated())
-            .addFilterBefore(
-                new JwtAuthenticationFilter(tokenProvider),
-                UsernamePasswordAuthenticationFilter.class
-            );
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**")
+                        .permitAll().anyRequest().authenticated())
+                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .authenticationProvider(authenticationProvider()).addFilterBefore(
+                    tokenProvider, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

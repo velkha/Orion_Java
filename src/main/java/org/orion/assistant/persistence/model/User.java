@@ -23,19 +23,22 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique = true)
     private String username;
+    @Column
     private String email;
+    @Column
     private String password;
     @Enumerated(EnumType.STRING)
+    @Column
     private Role role;
     @Column(name = "session_id")
     private String sessionId;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -107,6 +110,46 @@ public class User implements UserDetails {
         return username;
     }
 
+    private User() {
+        // private constructor to prevent outside instantiation
+    }
+
+    public static class Builder {
+        private User user = new User();
+
+        public Builder username (String username) {
+            user.username = username;
+            return this;
+        }
+
+        public Builder email(String email) {
+            user.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            user.password = password;
+            return this;
+        }
+
+        public Builder role(Role role) {
+            user.role = role;
+            return this;
+        }
+
+        public Builder sessionId(String sessionId) {
+            user.sessionId = sessionId;
+            return this;
+        }
+
+        public User build() {
+            return user;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
 
 }

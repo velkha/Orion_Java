@@ -1,8 +1,12 @@
 package org.orion.assistant.persistence.service.impl;
 
 import org.orion.assistant.enums.Role;
+import org.orion.assistant.persistence.dao.auth.AuthResponse;
+import org.orion.assistant.persistence.dao.auth.SignInReq;
+import org.orion.assistant.persistence.dao.auth.SignUpReq;
 import org.orion.assistant.persistence.model.User;
 import org.orion.assistant.persistence.repositories.UserRepository;
+import org.orion.assistant.persistence.service.AuthService;
 import org.orion.assistant.persistence.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService{
     private  UserRepository userRepository;
     private  PasswordEncoder passwordEncoder;
     private  JwtService jwtService;
@@ -27,22 +31,25 @@ public class AuthServiceImpl {
     }
 
     @Override
-    public JwtAuthenticationResponse signup(SignUpRequest request) {
-        var user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName())
+    public AuthResponse signUp(SignUpReq request) {
+        User user = User.builder()
+                .username(request.getUsername())
                 .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER).build();
         userRepository.save(user);
-        var jwt = jwtService.generateToken(user);
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+        String jwt = jwtService.generateToken(user);
+        return AuthResponse.builder().token(jwt).build();
     }
 
     @Override
-    public JwtAuthenticationResponse signin(SigninRequest request) {
+    public AuthResponse signIn(SignInReq request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
-        var jwt = jwtService.generateToken(user);
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        User user = userRepository.findByEmail(request.getUsername());
+        if (user == null) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+        String jwt = jwtService.generateToken(user);
+        return AuthResponse.builder().token(jwt).build();
     }
 }
