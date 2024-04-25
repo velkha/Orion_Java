@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orion.assistant.persistence.dto.UserDTO;
 import org.orion.assistant.persistence.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService {
     UserDTO getUserById(Long id);
@@ -13,5 +14,6 @@ public interface UserService {
     UserDTO getUserByEmail(String email);
     UserDTO getUserBySessionId(String sessionId);
     List<UserDTO> getAllUsers();
+    UserDetailsService userDetailsService();
 
 }

@@ -50,7 +50,7 @@ public class ProcessServiceImpl implements ProcessService{
             user.setSessionId(watsonAssistant.createSession());
         }
         LOG.info("Processing user: " );
-        LOG.info("User name: " + user.getName());
+        LOG.info("User name: " + user.getUsername());
         LOG.info("User mail: " + user.getEmail());
         LOG.info("User sessionId: " + user.getSessionId());
         LOG.info("User role: " + user.getRole());

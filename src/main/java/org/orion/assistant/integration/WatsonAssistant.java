@@ -63,7 +63,7 @@ public class WatsonAssistant {
     }
 
     public MessageResponse sendMessage(String message, UserDTO user) {
-        LOG.info("User: "+user.getId()+"|"+user.getName()+"\nSending message: " + message);
+        LOG.info("User: "+user.getId()+"|"+user.getUsername()+"\nSending message: " + message);
         MessageInput input = new MessageInput.Builder()
             .text(message)
             .build();
