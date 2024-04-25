@@ -1,18 +1,17 @@
-package org.orion.assistant.persistence.dto;
+package org.orion.assistant.persistence.dao.auth;
 
-public class LoginRequestDTO {
+public class SignInReq {
     private String username;
     private String password;
 
-    // Constructors
-    public LoginRequestDTO() {}
+    public SignInReq() {
+    }
 
-    public LoginRequestDTO(String username, String password) {
+    public SignInReq(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    // Getters and Setters
     public String getUsername() {
         return username;
     }

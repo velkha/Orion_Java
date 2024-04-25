@@ -2,7 +2,7 @@ package org.orion.assistant.persistence.dto;
 
 public class UserDTO {
     private long id;
-    private String name;
+    private String username;
     private String email;
     private String sessionId;
     private String role;
@@ -12,7 +12,7 @@ public class UserDTO {
     }
 
     public UserDTO(String name, String email, String sessionId, String role, String password) {
-        this.name = name;
+        this.username = name;
         this.email = email;
         this.sessionId = sessionId;
         this.role = role;
@@ -27,12 +27,12 @@ public class UserDTO {
         this.id = id;
     }
     
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getEmail() {

@@ -1,12 +1,16 @@
 package org.orion.assistant.config.web;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.orion.assistant.integration.jwt.JwtAuthenticationFilter;
 import org.orion.assistant.integration.jwt.JwtTokenProvider;
-import org.orion.assistant.persistence.dto.UserDTO;
+import org.orion.assistant.persistence.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +26,8 @@ public class SecurityConfig {
     //TODO: pasarlo a constructor
     @Autowired
     private JwtTokenProvider tokenProvider;
-    
+    @Autowired
+    private UserService userService;
     //TODO question for myself: dafuk m8 is this?, why are we still here? just to suffer? T-T
     //! From past self: Future self I just want to say that Im so sorry for this, my eyes were bleeding, i just needed it to stop, to let them rest a little 
     //! From past self: I hope you can forgive me for this, I know you will understand
@@ -50,13 +55,18 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    //TODO terminar de implementar configuracion de autentificacion, asegurar correcto funcionamiento del bean
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth, UserDTO userDTO) throws Exception {
-        // Here you configure your authentication provider, for example, in-memory, JDBC, etc.
-        auth.inMemoryAuthentication()
-            .withUser(userDTO.getName()).password(passwordEncoder().encode(userDTO.getPassword())).roles(userDTO.getRole());
-        return auth.build();
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userService.userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
+        return config.getAuthenticationManager();
     }
 }
 

@@ -1,8 +1,8 @@
 package org.orion.assistant.controllers;
 
 import org.orion.assistant.integration.jwt.JwtTokenProvider;
-import org.orion.assistant.persistence.dto.AuthResponse;
-import org.orion.assistant.persistence.dto.LoginRequestDTO;
+import org.orion.assistant.persistence.dao.auth.AuthResponse;
+import org.orion.assistant.persistence.dao.auth.SignInReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +19,7 @@ public class AuthenticationController {
     
 
     @PostMapping("/auth")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequestDTO loginRequest) {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInReq loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );

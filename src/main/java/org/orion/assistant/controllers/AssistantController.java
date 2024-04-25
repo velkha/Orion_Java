@@ -66,8 +66,8 @@ public class AssistantController {
          * 5. Return the response
          */
         userService.createUser(createTemporalTestUser());
-        userService.getAllUsers().forEach(user -> LOG.info(user.getName()));
-        LOG.info(userService.getUserById(1L).getName());
+        userService.getAllUsers().forEach(user -> LOG.info(user.getUsername()));
+        LOG.info(userService.getUserById(1L).getUsername());
         return "finished";
     }
     @PostMapping("/restartSession")
@@ -80,6 +80,6 @@ public class AssistantController {
     }
 
     public UserDTO createTemporalTestUser() {
-        return new UserDTO("name", "mail", null, "null");
+        return new UserDTO("name", "mail", null, "none", "pass");
     }
 }

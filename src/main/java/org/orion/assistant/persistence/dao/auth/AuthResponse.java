@@ -1,10 +1,13 @@
-package org.orion.assistant.persistence.dto;
+package org.orion.assistant.persistence.dao.auth;
 
 public class AuthResponse {
     private String token;
 
     public AuthResponse(String token) {
         this.token = token;
+    }
+
+    public AuthResponse() {
     }
 
     public String getToken() {
