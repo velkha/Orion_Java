@@ -1,11 +1,11 @@
-package org.orion.assistant.persistence.service.impl;
+package org.orion.assistant.persistence.service.authservices.impl;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.orion.assistant.persistence.service.JwtService;
+import org.orion.assistant.persistence.service.authservices.JwtService;
 import org.springframework.beans.factory.annotation.Value;
 import java.security.Key;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 
 /**
  * Implementation of the JwtService interface
- * {@link org.orion.assistant.persistence.service.JwtService}
+ * {@link org.orion.assistant.persistence.service.authservices.JwtService}
  */
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -27,7 +27,7 @@ public class JwtServiceImpl implements JwtService {
     private String jwtSigningKey;
 
     /**
-     * {@link org.orion.assistant.persistence.service.JwtService#extractUserName(String)}
+     * {@link org.orion.assistant.persistence.service.authservices.JwtService#extractUserName(String)}
      */
     @Override
     public String extractUserName(String token) {
@@ -35,7 +35,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     /**
-     * {@link org.orion.assistant.persistence.service.JwtService#generateToken(UserDetails)}
+     * {@link org.orion.assistant.persistence.service.authservices.JwtService#generateToken(UserDetails)}
      */
     @Override
     public String generateToken(UserDetails userDetails) {
@@ -43,7 +43,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     /**
-     * {@link org.orion.assistant.persistence.service.JwtService#validateToken(String, UserDetails)}
+     * {@link org.orion.assistant.persistence.service.authservices.JwtService#validateToken(String, UserDetails)}
      */
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -52,7 +52,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     /**
-     * {@link org.orion.assistant.persistence.service.JwtService#extractClaim(String, Function)}
+     * {@link org.orion.assistant.persistence.service.authservices.JwtService#extractClaim(String, Function)}
      */
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);

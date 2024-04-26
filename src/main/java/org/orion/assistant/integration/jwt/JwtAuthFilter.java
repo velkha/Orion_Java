@@ -3,8 +3,8 @@ package org.orion.assistant.integration.jwt;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.orion.assistant.persistence.service.JwtService;
-import org.orion.assistant.persistence.service.UserService;
+import org.orion.assistant.persistence.service.authservices.JwtService;
+import org.orion.assistant.persistence.service.authservices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

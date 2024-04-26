@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.service.impl;
+package org.orion.assistant.persistence.service.authservices.impl;
 
 import java.util.ArrayList;
 

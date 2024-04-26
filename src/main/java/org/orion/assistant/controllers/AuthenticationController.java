@@ -3,7 +3,7 @@ package org.orion.assistant.controllers;
 import org.orion.assistant.persistence.dao.auth.AuthResponse;
 import org.orion.assistant.persistence.dao.auth.SignInReq;
 import org.orion.assistant.persistence.dao.auth.SignUpReq;
-import org.orion.assistant.persistence.service.AuthService;
+import org.orion.assistant.persistence.service.authservices.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

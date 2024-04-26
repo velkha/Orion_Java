@@ -1,10 +1,10 @@
-package org.orion.assistant.persistence.service.impl;
+package org.orion.assistant.persistence.service.authservices.impl;
 
-import org.orion.assistant.persistence.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.orion.assistant.persistence.dto.UserDTO;
 import org.orion.assistant.persistence.model.User;
 import org.orion.assistant.persistence.repositories.UserRepository;
+import org.orion.assistant.persistence.service.authservices.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 /**
  * Implementation of the UserService interface
- * {@link org.orion.assistant.persistence.service.UserService}
+ * {@link org.orion.assistant.persistence.service.authservices.UserService}
  */
 @Service
 public class UserServiceImpl implements UserService {

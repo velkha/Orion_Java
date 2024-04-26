@@ -3,7 +3,7 @@ package org.orion.assistant.persistence.dao.auth;
 
 /**
  * Request object for the sign up process
- * {@link org.orion.assistant.persistence.service.AuthService#signIn(SignUpReq)}
+ * {@link org.orion.assistant.persistence.service.authservices.AuthService#signIn(SignUpReq)}
  */
 public class SignUpReq {
     private String username;

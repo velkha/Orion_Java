@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.service;
+package org.orion.assistant.persistence.service.authservices;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

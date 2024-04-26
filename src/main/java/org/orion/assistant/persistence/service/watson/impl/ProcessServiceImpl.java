@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.service.impl;
+package org.orion.assistant.persistence.service.watson.impl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,12 +9,12 @@ import org.apache.logging.log4j.Logger;
 import org.orion.assistant.exception.custom.ResourceNotFoundException;
 import org.orion.assistant.integration.WatsonAssistant;
 import org.orion.assistant.persistence.dto.UserDTO;
-import org.orion.assistant.persistence.service.ProcessService;
+import org.orion.assistant.persistence.service.watson.ProcessService;
 import org.springframework.stereotype.Service;
 
 /**
  * Implementation of the ProcessService interface
- * {@link org.orion.assistant.persistence.service.ProcessService}
+ * {@link org.orion.assistant.persistence.service.watson.ProcessService}
 
  */
 @Service
@@ -54,7 +54,7 @@ public class ProcessServiceImpl implements ProcessService{
         this.watsonAssistant = watsonAssistant;
     }
     /**
-     * {@link org.orion.assistant.persistence.service.ProcessService#process(UserDTO, String)}
+     * {@link org.orion.assistant.persistence.service.watson.ProcessService#process(UserDTO, String)}
      */
     @Override
     public String process(UserDTO user, String message) {
@@ -62,7 +62,7 @@ public class ProcessServiceImpl implements ProcessService{
     }
 
     /**
-     * {@link org.orion.assistant.persistence.service.ProcessService#process(UserDTO, String, String)}
+     * {@link org.orion.assistant.persistence.service.watson.ProcessService#process(UserDTO, String, String)}
      */
     @Override
     public String process(UserDTO user, String session, String message) {

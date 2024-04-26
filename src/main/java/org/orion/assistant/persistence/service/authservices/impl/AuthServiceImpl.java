@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.service.impl;
+package org.orion.assistant.persistence.service.authservices.impl;
 
 import org.orion.assistant.enums.Role;
 import org.orion.assistant.persistence.dao.auth.AuthResponse;
@@ -6,8 +6,8 @@ import org.orion.assistant.persistence.dao.auth.SignInReq;
 import org.orion.assistant.persistence.dao.auth.SignUpReq;
 import org.orion.assistant.persistence.model.User;
 import org.orion.assistant.persistence.repositories.UserRepository;
-import org.orion.assistant.persistence.service.AuthService;
-import org.orion.assistant.persistence.service.JwtService;
+import org.orion.assistant.persistence.service.authservices.AuthService;
+import org.orion.assistant.persistence.service.authservices.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Implementation of the AuthService interface
- * {@link org.orion.assistant.persistence.service.AuthService}
+ * {@link org.orion.assistant.persistence.service.authservices.AuthService}
  */
 @Service
 public class AuthServiceImpl implements AuthService{
@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService{
     }
 
     /**
-     * {@link org.orion.assistant.persistence.service.AuthService#signUp(SignUpReq)}
+     * {@link org.orion.assistant.persistence.service.authservices.AuthService#signUp(SignUpReq)}
      * @param request - SignUpReq object
      * @return AuthResponse object
      */
@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService{
     }
 
     /**
-     * {@link org.orion.assistant.persistence.service.AuthService#signIn(SignInReq)}
+     * {@link org.orion.assistant.persistence.service.authservices.AuthService#signIn(SignInReq)}
      * @param request - SignInReq object
      * @return AuthResponse object
      */

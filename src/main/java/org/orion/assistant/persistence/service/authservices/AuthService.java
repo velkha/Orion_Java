@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.service;
+package org.orion.assistant.persistence.service.authservices;
 
 import org.orion.assistant.persistence.dao.auth.AuthResponse;
 import org.orion.assistant.persistence.dao.auth.SignInReq;

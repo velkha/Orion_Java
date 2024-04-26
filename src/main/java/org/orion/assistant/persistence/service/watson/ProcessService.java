@@ -1,4 +1,4 @@
-package org.orion.assistant.persistence.service;
+package org.orion.assistant.persistence.service.watson;
 
 import org.orion.assistant.persistence.dto.UserDTO;
 
