@@ -44,6 +44,7 @@ public class ProcessExecutor {
         if (exitCode == 0) {
             return output;
         } else {
+            LOG.error("Process exited with error code " + exitCode);
             throw new ProcessExecutionException("Process exited with error code " + exitCode);
         }
     }

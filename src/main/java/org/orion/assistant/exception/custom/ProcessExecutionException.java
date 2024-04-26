@@ -1,11 +1,11 @@
 package org.orion.assistant.exception.custom;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 public class ProcessExecutionException extends RuntimeException{
     private static final long serialVersionUID = 1L;
-    private static Logger LOG = LogManager.getLogger(ProcessExecutionException.class);
+    //private static Logger LOG = LogManager.getLogger(ProcessExecutionException.class);
 
     public ProcessExecutionException(String message) {
         super(message);
