@@ -48,7 +48,8 @@ public class AuthServiceImpl implements AuthService{
     public AuthResponse signUp(SignUpReq request) {
         User user = User.builder()
                 .username(request.getUsername())
-                .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER).build();
         userRepository.save(user);
         String jwt = jwtService.generateToken(user);
