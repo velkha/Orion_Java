@@ -1,6 +1,9 @@
 package org.orion.assistant.controllers;
 
+import org.orion.assistant.exception.custom.bbdd.IncorrectPasswordException;
+import org.orion.assistant.exception.custom.bbdd.InvalidDataException;
 import org.orion.assistant.exception.custom.bbdd.UserAlreadyExistException;
+import org.orion.assistant.exception.custom.bbdd.UserNotFoundException;
 import org.orion.assistant.persistence.dao.auth.AuthResponse;
 import org.orion.assistant.persistence.dao.auth.SignInReq;
 import org.orion.assistant.persistence.dao.auth.SignUpReq;
@@ -40,6 +43,8 @@ public class AuthenticationController {
         } catch (UserAlreadyExistException e) {
             // Return a 409 status code with a custom error message
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+        } catch (InvalidDataException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data");
         }
     }
 
@@ -50,8 +55,15 @@ public class AuthenticationController {
      * @return //TODO: QUE RETORNA
      */
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> signin(@RequestBody SignInReq request) {
-        return ResponseEntity.ok(authenticationService.signIn(request));
+    public ResponseEntity<?> signin(@RequestBody SignInReq request) {
+        try {
+            AuthResponse response = authenticationService.signIn(request);
+            return ResponseEntity.ok(response);
+        } catch (IncorrectPasswordException | UserNotFoundException ea) {
+            // Return a 401 status code with a custom error message
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect username or password");
+        } catch (InvalidDataException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data");
+        }
     }
-
 }
