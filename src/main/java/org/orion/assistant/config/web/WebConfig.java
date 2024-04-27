@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     private final List<String> allowedOrigins;
 
     public WebConfig() {
-        this.allowedOrigins = FileUtilsWorker.loadCsvAsList("allowed_origins.csv");
+        this.allowedOrigins = FileUtilsWorker.loadCsvAsList("/allowed_origins.csv");
     }
 
     @Override

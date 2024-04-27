@@ -1,10 +1,12 @@
 package org.orion.assistant.controllers;
 
+import org.orion.assistant.exception.custom.bbdd.UserAlreadyExistException;
 import org.orion.assistant.persistence.dao.auth.AuthResponse;
 import org.orion.assistant.persistence.dao.auth.SignInReq;
 import org.orion.assistant.persistence.dao.auth.SignUpReq;
 import org.orion.assistant.persistence.service.authservices.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,17 +27,20 @@ public class AuthenticationController {
      * Petitition to sign up, request body must contain the user data, it save the user in the database
      * username, password, email
      * @param request - SignUpReq object
-     * @return token of authentication
+     * @return token of authentication or a message if the user already exists
      */
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> signup(@RequestBody SignUpReq request) {
+    public ResponseEntity<?> signup(@RequestBody SignUpReq request) {
         LOG.info("-----------------------------------------------------------");
         LOG.info("Request received: {}", request); 
         LOG.info("-----------------------------------------------------------");
-        //TODO: check so if duplicat it do not thrown the 409(conflict) in server and just return a  with a message that the user already exist 
-        //! [DO NOT RETURN THE TOKEN IN CASE OF DUPLICATE USER, JUST RETURN A MESSAGE SAYING THAT THE USER ALREADY EXIST]
-
-        return ResponseEntity.ok(authenticationService.signUp(request));
+        try {
+            AuthResponse response = authenticationService.signUp(request);
+            return ResponseEntity.ok(response);
+        } catch (UserAlreadyExistException e) {
+            // Return a 409 status code with a custom error message
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package org.orion.assistant.persistence.service.authservices.impl;
 
 import org.orion.assistant.enums.Role;
+import org.orion.assistant.exception.custom.bbdd.UserAlreadyExistException;
 import org.orion.assistant.persistence.dao.auth.AuthResponse;
 import org.orion.assistant.persistence.dao.auth.SignInReq;
 import org.orion.assistant.persistence.dao.auth.SignUpReq;
@@ -43,9 +44,14 @@ public class AuthServiceImpl implements AuthService{
      * {@link org.orion.assistant.persistence.service.authservices.AuthService#signUp(SignUpReq)}
      * @param request - SignUpReq object
      * @return AuthResponse object
+     * @throws UserAlreadyExistException 
      */
     @Override
-    public AuthResponse signUp(SignUpReq request) {
+    public AuthResponse signUp(SignUpReq request) throws UserAlreadyExistException {
+        User existingUser = userRepository.findByUsername(request.getUsername());
+        if (existingUser != null) {
+            throw new UserAlreadyExistException("User with given username or email already exists");
+        }
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
