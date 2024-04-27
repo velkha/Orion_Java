@@ -17,6 +17,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.orion.assistant.persistence.dto.UserDTO;
+import org.springframework.stereotype.Component;
 
 //TODO: multi-assistant (for multilenguage support)
 

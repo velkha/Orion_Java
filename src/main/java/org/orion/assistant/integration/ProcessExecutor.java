@@ -9,7 +9,9 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.orion.assistant.exception.custom.ProcessExecutionException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProcessExecutor {
     private static Logger LOG = LogManager.getLogger(ProcessExecutor.class);
 
