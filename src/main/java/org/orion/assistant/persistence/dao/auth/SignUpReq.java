@@ -42,4 +42,11 @@ public class SignUpReq {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String toLog() {
+        return "SignUpReq{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

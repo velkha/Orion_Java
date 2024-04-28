@@ -31,4 +31,10 @@ public class SignInReq {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String toLog() {
+        return "SignInReq{" +
+                "username='" + username + '\'' +
+                '}';
+    }
 }

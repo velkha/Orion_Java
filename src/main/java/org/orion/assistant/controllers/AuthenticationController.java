@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -42,8 +43,13 @@ public class AuthenticationController {
             return ResponseEntity.ok(response);
         } catch (UserAlreadyExistException e) {
             // Return a 409 status code with a custom error message
+            LOG.error("User already exists");
+            LOG.error(request.toLog());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
         } catch (InvalidDataException e) {
+            // Return a 400 status code with a custom error message
+            LOG.error("Invalid data");
+            LOG.error(request.toLog());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data");
         }
     }
@@ -60,9 +66,12 @@ public class AuthenticationController {
             AuthResponse response = authenticationService.signIn(request);
             return ResponseEntity.ok(response);
         } catch (IncorrectPasswordException | UserNotFoundException ea) {
-            // Return a 401 status code with a custom error message
+            LOG.error("Incorrect username or password");
+            LOG.error(request.toLog());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect username or password");
         } catch (InvalidDataException e) {
+            LOG.error("Invalid data");
+            LOG.error(request.toLog());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data");
         }
     }
