@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
+/**
+ * The `AssistantController` class in Java is a REST controller that interacts with services to process
+ * user messages with the assistant and manage user sessions.
+ */
 @RestController
 public class AssistantController {
 
@@ -22,6 +26,11 @@ public class AssistantController {
     private static final Logger LOG = LogManager.getLogger(AssistantController.class);
     private static String testSession;
     
+    // This constructor in the `AssistantController` class is initializing the `processService` and
+    // `userService` dependencies using dependency injection. It also loads a properties file named
+    // `temporal.properties` from the `src/main/resources` directory and retrieves the value of the
+    // property named "session" from it, storing it in the `testSession` variable. If an error occurs
+    // during the file loading process, it logs an error message using the Log4j logger.
     public AssistantController(ProcessService processService, UserService userService) {
         this.processService = processService;
         this.userService = userService;

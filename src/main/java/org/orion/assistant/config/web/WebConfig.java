@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * The `WebConfig` class in Java configures CORS settings for a Spring application based on allowed
+ * origins loaded from a CSV file.
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 

@@ -5,12 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Global exception handler for processing exceptions in the application.
+ */
 @RestControllerAdvice
 public class GlobalProcessExceptionHandler {
     /**
-     * Handle the exception when a resource is not found
-     * @param ex
-     * @return
+     * Handle the exception when a resource is not found.
+     * 
+     * @param ex the ResourceNotFoundException to be handled
+     * @return a ResponseEntity with a not found status
      */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(ResourceNotFoundException ex) {

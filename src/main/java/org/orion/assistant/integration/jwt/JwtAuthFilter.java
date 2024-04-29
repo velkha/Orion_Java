@@ -32,30 +32,47 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private UserService userService;
     
     /**
-     * Filter to authenticate the user with the JWT token
-     * @param request - HttpServletRequest object
-     * @param response - HttpServletResponse object
-     * @param filterChain - FilterChain object
-     * @throws ServletException - ServletException
-     * @throws IOException - IOException
+     * Filters the incoming HTTP request and response to perform JWT authentication.
+     * If the request contains a valid JWT token in the "Authorization" header, it extracts the user username
+     * from the token and checks if the user is authenticated. If the user is authenticated, it sets the
+     * authentication context for the request. Otherwise, it allows the request to proceed without authentication.
+     *
+     * @param request      the incoming HTTP request
+     * @param response     the HTTP response
+     * @param filterChain the filter chain for processing the request
+     * @throws ServletException if an error occurs during the filter process
+     * @throws IOException      if an I/O error occurs during the filter process
      */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+
+        // Get the "Authorization" header from the request
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String userEmail;
+        final String user;
+
+        // If the "Authorization" header is empty or does not start with "Bearer ", allow the request to proceed without authentication
         if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
+
+        // Extract the JWT token from the "Authorization" header
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUserName(jwt);
-        if (StringUtils.isNotEmpty(userEmail)
+        
+        // Extract the username from the JWT token
+        user = jwtService.extractUserName(jwt);
+
+        // If the username is not empty and the user is not already authenticated, perform authentication
+        if (StringUtils.isNotEmpty(user)
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // Load the user details from the user service
             UserDetails userDetails = userService.userDetailsService()
-                    .loadUserByUsername(userEmail);
+                    .loadUserByUsername(user);
+            
+            // If the JWT token is valid for the user, set the authentication context for the request
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
@@ -65,6 +82,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.setContext(context);
             }
         }
+        
+        // Proceed with the filter chain
         filterChain.doFilter(request, response);
     }
 }
